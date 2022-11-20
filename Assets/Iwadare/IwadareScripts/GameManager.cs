@@ -10,8 +10,10 @@ public class GameManager : SingletonMonovihair<GameManager>
     [SerializeField]int _maxPow = 100;
     [Tooltip("ゲーム中に動くPowブロックの数")]
     private int _pow;
-    [Tooltip("数をカウントするテキスト")]
+    [Tooltip("Powの数をカウントするテキスト")]
     private Text _powCount;
+    [Tooltip("GameOverになった際キャンバスの表示")]
+    private GameObject _gameOverCanvas;
     [Tooltip("チェックポイントを参照する変数")]
     GameObject[] _chackObj;
     [Tooltip("チェックポイントリスト")]
@@ -25,7 +27,6 @@ public class GameManager : SingletonMonovihair<GameManager>
     GameObject _plasMinas;
     [Tooltip("ゲーム中")]
     public bool _playGame;
-
     //外から変数の中身を変えることがなかったら下の文に変更します。
     //public bool _playGame => _play;
 
@@ -35,6 +36,8 @@ public class GameManager : SingletonMonovihair<GameManager>
     /// <summary>一番初めにやってほしいことはここに書く。</summary>
     void Start()
     {
+        _gameOverCanvas = transform.GetChild(0).gameObject;
+        _gameOverCanvas.SetActive(false);
         //powブロックの初期化
         PowReset();
         Begin();
@@ -46,7 +49,7 @@ public class GameManager : SingletonMonovihair<GameManager>
         //powの残り個数をカウントするテキストの参照
         _powCount = GameObject.Find("Count")?.GetComponent<Text>();
         //テキストの表示
-        ShowText();
+        ShowText(_powCount);
         //スタート地点とチェックポイントを全部参照
         _chackObj = GameObject.FindGameObjectsWithTag("Respawn");
         //_chackObjのnull判定
@@ -78,13 +81,13 @@ public class GameManager : SingletonMonovihair<GameManager>
     }
 
     /// <summary>Powブロックの残り個数の表示</summary>
-    private void ShowText()
+    public void ShowText(Text powcount)
     {
         //null判定
-        if (_powCount)
+        if (powcount)
         {
             //テキストに残り個数の表示
-            _powCount.text = _pow.ToString("000");
+            powcount.text = _pow.ToString("000");
         }
     }
 
@@ -97,7 +100,12 @@ public class GameManager : SingletonMonovihair<GameManager>
         if (_plasMinas) _plasMinas.SetActive(true);
         var minastext = _plasMinas?.GetComponent<Text>();
         minastext.text = add.ToString();
-        ShowText();
+        ShowText(_powCount);
+        if(_pow <= 0)
+        {
+            _playGame = false;
+            _gameOverCanvas.SetActive(true);
+        }
     }
 
     /// <summary>残ったPowブロックの数によって評価を表示する</summary>
