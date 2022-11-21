@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,16 +9,22 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _playerRb = default;
     SpriteRenderer _playerSr = default;
     Animator _playerAnim = default;
-    [SerializeField, Header("移動スピード")] float _speed;
-    [Tooltip("左右入力")] float _hInput;
-    [SerializeField, Header("ジャンプ力")] float _jumpForce;
-    [SerializeField, Header("着地判定")] bool _onGround;
+    [SerializeField, Header("移動スピード")] float _speed = default;
+    [Tooltip("左右入力")] float _hInput = default;
+    [SerializeField, Header("ジャンプ力")] float _jumpForce = default;
+    [SerializeField, Header("着地判定")] bool _onGround = default;
 
     //*****Powブロック関連*****
-    [Tooltip("Powを投げられるかどうか")] bool _canThrow;
-    [SerializeField, Header("Powを投げるインターバル")] float _throwInterval;
-    [SerializeField, Header("Powブロック")] GameObject _powBlock;
-    [SerializeField, Header("投げるPowブロックを召喚する位置")] GameObject _powSpawn;
+    [Tooltip("マウスのポジション")] Vector2 _mouseposition = default;
+    [Tooltip("Powを投げられるかどうか")] bool _canThrow = default;    //インターバルをつけて制御
+    [Tooltip("Powを置けるかどうか")] bool _canPut = default;    //カーソルの先にものがあるかどうかで制御
+    [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
+    [SerializeField, Header("Powブロック")] GameObject _powBlock = default;
+    [SerializeField, Header("投げるPowブロックを召喚する位置")] GameObject _powSpawn = default;
+    [SerializeField, Header("枠のオブジェクト")] GameObject _cursor = default;
+    [Tooltip("枠のSpriteRenderer")] SpriteRenderer _crsorSR = default;
+    [Tooltip("Rayの長さ")] float _rayLength = default;
+    //[Tooltip("Rayと枠の座標差分")] Vector3 _offset = new Vector3(0.5f, 0.5f, 0f);
 
 
     /// <summary> プレイヤーの操作状態  /// </summary>
@@ -29,19 +36,42 @@ public class PlayerController : MonoBehaviour
     }
 
     public PowMode _playMode;
-    
+
 
     void Start()
     {
         _playerRb = gameObject.GetComponent<Rigidbody2D>();
         _playerSr = gameObject.GetComponent<SpriteRenderer>();
         _playerAnim = gameObject.GetComponent<Animator>();
+        Cursor.visible = false;
+        _crsorSR = _cursor.GetComponent<SpriteRenderer>();
+
+        _canPut = true;
+        _canThrow = true;
     }
 
     private void Update()
     {
         _hInput = Input.GetAxisRaw("Horizontal");
-        //カーソルの位置を取得
+        _mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //カーソルの位置を取得
+        _cursor.transform.position
+            = new Vector2(Mathf.Round(_mouseposition.x), Mathf.Round(_mouseposition.y)); //枠オブジェクトをカーソルの位置に格子点に沿って移動
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //カメラからカーソルの方向にRayを飛ばす。
+        //Vector3 rayRound = new Vector3(Mathf.Round(ray.direction.x), Mathf.Round(ray.direction.y), 0); //rayの方向を格子点に丸め込む
+
+        if (Physics2D.Raycast(ray.origin, ray.direction, _rayLength) || !_onGround) //何かにあたったらPowを置けないようにする。枠オブジェクトを赤くする。
+        {
+            Debug.Log("配置できないよ");
+            _canPut = false;
+            _crsorSR.color = Color.red;
+        }
+        else
+        {
+            _canPut = true;
+            _crsorSR.color = Color.white;
+        }
+
     }
 
     void LateUpdate()
@@ -50,23 +80,29 @@ public class PlayerController : MonoBehaviour
         if (_playerAnim && _playMode == PowMode.Normal)
         {
             _playerAnim.SetFloat("Speed", Mathf.Abs(_hInput * _speed)); //AnimatorControllerに移動速度を渡す
-            //カーソルの位置にマーカーをつける
-            
+
+
             //*****Powブロックを投げる処理（インターバルあり）*****
             if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
             {
                 _playerAnim.SetTrigger("Pow");  //投げる（アニメーション）
-                Instantiate(_powBlock, _powSpawn.transform);
+                //「ぽよーん」SE鳴らす
                 _playMode = PowMode.Throw; //投げる（PowControllerから参照）
+                Instantiate(_powBlock, _powSpawn.transform.position, _powSpawn.transform.rotation);
                 //Powの数を減らす
             }
 
             //*****Powブロックを配置する処理*****
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && _canPut)
             {
-                //カーソルの位置にPowブロックを配置する
                 _playMode = PowMode.Put; //配置する（PowControllerから参照）
+                Instantiate(_powBlock, _cursor.transform.position, _cursor.transform.rotation);　//枠の位置にPowブロックを配置する
                 //Powの数を減らす
+            }
+            else if (Input.GetButtonDown("Fire1") && !_canPut)
+            {
+
+                //「ブッブー」SE鳴らす
             }
 
             //*****移動＆ジャンプ処理*****
@@ -76,18 +112,17 @@ public class PlayerController : MonoBehaviour
             if (_hInput < 0 && !_playerSr.flipX)
             {
                 _playerSr.flipX = true;
-                _powSpawn.transform.position = new Vector2(-_powSpawn.transform.position.x, _powSpawn.transform.position.y);
             }
             else if (_hInput > 0 && _playerSr.flipX)
             {
                 _playerSr.flipX = false;
-                _powSpawn.transform.position = new Vector2(-_powSpawn.transform.position.x, _powSpawn.transform.position.y);
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && _onGround)
             {
                 _playerRb.AddForce(Vector2.up * _jumpForce);
                 _playerAnim.SetTrigger("Jump");
+                _onGround = false;
             }
         }
     }
@@ -95,19 +130,19 @@ public class PlayerController : MonoBehaviour
     /// <param name="other"></param>
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow"))
         {
             _onGround = true;
         }
         //Elevatorだったら子オブジェクトにする
     }
 
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            _onGround = false;
-        }
-        //Elevatorだったら子オブジェクトから解除する
-    }
+    //private void OnCollisionExit2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow"))
+    //    {
+    //        _onGround = false;
+    //    }
+    //    //Elevatorだったら子オブジェクトから解除する
+    //}
 }
