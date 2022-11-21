@@ -202,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110749239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.14, y: -1.28, z: 0}
+  m_LocalPosition: {x: -3.23, y: -1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -398,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &599417233
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -782,6 +782,9 @@ MonoBehaviour:
   _fallmovespeed: 8
   _downspeed: 8
   _fallground: {x: 0, y: -10}
+  _throwcooltime: 2
+  _bullet: {fileID: 8190581783717681037, guid: e184db52e0710ec4e84e9f752b1d5701, type: 3}
+  _shotpoint: {fileID: 1251949779}
 --- !u!58 &1452853019
 CircleCollider2D:
   m_ObjectHideFlags: 0

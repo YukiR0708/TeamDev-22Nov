@@ -23,6 +23,10 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] Vector2 _fallground = new Vector2(0f, -10f);　//LineCastの長さ
     bool _boolground = true;　//地面についた際の判定
     float _nowtransform;　//どっすんが初めにいたY軸のPositionの記録
+
+    [SerializeField] float _throwcooltime; //撃つまでのcooltime
+    [SerializeField] GameObject _bullet; //弾
+    [SerializeField] GameObject _shotpoint;　//撃つ場所
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +38,8 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         //Zako();
-        FallZako();
+        //FallZako();
+        ThrowZako();
     }
     void Zako()
     {
@@ -55,6 +60,7 @@ public class EnemyManager : MonoBehaviour
                 if (_groundbool == true)
                 {
                     _groundwalk = Vector2.right;
+                    this.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
                     _linegraund = new Vector2(1f, -1f);
                     _wallground = new Vector2(1f, 0f);
                     _groundbool = false;
@@ -62,6 +68,7 @@ public class EnemyManager : MonoBehaviour
                 else
                 {
                     _groundwalk = Vector2.left;
+                    this.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
                     _linegraund = new Vector2(-1f, -1f);
                     _wallground = new Vector2(-1f, 0f);
                     _groundbool = true;
@@ -82,12 +89,14 @@ public class EnemyManager : MonoBehaviour
                 if(_wallbool == true)
                 {
                     _groundwalk = Vector2.right;
+                    this.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
                     _wallground = new Vector2(1f, 0f);
                     _wallbool = false;
                 }
                 else
                 {
                     _groundwalk = Vector2.left;
+                    this.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
                     _wallground = new Vector2(-1f, 0f);
                     _wallbool = true;
                 }
@@ -122,6 +131,26 @@ public class EnemyManager : MonoBehaviour
             Vector3 dir2 = (_player.position - this.transform.position).normalized * _fallmovespeed;
             _rb.velocity = dir2.normalized * _fallmovespeed;
             _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+        }
+    }
+    void ThrowZako()
+    {
+        if(_player)
+        {
+            _time += Time.deltaTime;
+            if(_time > _throwcooltime)
+            {
+                Instantiate(_bullet, _shotpoint.transform.position, transform.rotation);
+                _time = 0;
+            }
+            if(_player.transform.position.x < this.transform.position.x)
+            {
+                this.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+            else
+            {
+                this.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
