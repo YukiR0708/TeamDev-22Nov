@@ -18,13 +18,12 @@ public class PlayerController : MonoBehaviour
     [Tooltip("マウスのポジション")] Vector2 _mouseposition = default;
     [Tooltip("Powを投げられるかどうか")] bool _canThrow = default;    //インターバルをつけて制御
     [Tooltip("Powを置けるかどうか")] bool _canPut = default;    //カーソルの先にものがあるかどうかで制御
-    [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
     [SerializeField, Header("Powブロック")] GameObject _powBlock = default;
     [SerializeField, Header("投げるPowブロックを召喚する位置")] GameObject _powSpawn = default;
     [SerializeField, Header("枠のオブジェクト")] GameObject _cursor = default;
     [Tooltip("枠のSpriteRenderer")] SpriteRenderer _crsorSR = default;
     [Tooltip("Rayの長さ")] float _rayLength = default;
-    //[Tooltip("Rayと枠の座標差分")] Vector3 _offset = new Vector3(0.5f, 0.5f, 0f);
+
 
 
     /// <summary> プレイヤーの操作状態  /// </summary>
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
             _playerAnim.SetFloat("Speed", Mathf.Abs(_hInput * _speed)); //AnimatorControllerに移動速度を渡す
 
 
-            //*****Powブロックを投げる処理（インターバルあり）*****
+            //*****Powブロックを投げる処理*****
             if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
             {
                 _playerAnim.SetTrigger("Pow");  //投げる（アニメーション）
@@ -137,12 +136,4 @@ public class PlayerController : MonoBehaviour
         //Elevatorだったら子オブジェクトにする
     }
 
-    //private void OnCollisionExit2D(Collision2D other)
-    //{
-    //    if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow"))
-    //    {
-    //        _onGround = false;
-    //    }
-    //    //Elevatorだったら子オブジェクトから解除する
-    //}
 }
