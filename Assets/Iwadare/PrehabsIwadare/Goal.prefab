@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2541163754280037723}
   - component: {fileID: 2541163754280037718}
   - component: {fileID: 8847660089614408877}
+  - component: {fileID: 4560668879656583920}
   m_Layer: 0
   m_Name: GoalCanvas
   m_TagString: Untagged
@@ -131,6 +132,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4812b09bc990d1c429343f0aa9e9019d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4560668879656583920
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2541163754280037721}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 71b1116dfdc26b54ab4e6bd8d9598bbf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2541163754511236152
 GameObject:
   m_ObjectHideFlags: 0

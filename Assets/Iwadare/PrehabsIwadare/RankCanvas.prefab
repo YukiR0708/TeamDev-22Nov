@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 2226288998872555762}
   - component: {fileID: 2226288998872555773}
   - component: {fileID: 5818534135449008605}
+  - component: {fileID: 1255749093302162795}
   m_Layer: 5
   m_Name: RankCanvas
   m_TagString: Untagged
@@ -228,6 +229,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58366b2787e91fd40ade6ed746ba18d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1255749093302162795
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226288998872555772}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8018fdaba04e01c438c8cfff298a02ed, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2226288999343016193
 GameObject:
   m_ObjectHideFlags: 0

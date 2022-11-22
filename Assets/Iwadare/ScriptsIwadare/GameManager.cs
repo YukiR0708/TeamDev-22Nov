@@ -99,7 +99,7 @@ public class GameManager : SingletonMonovihair<GameManager>
         _pow += add;
         if (_plasMinas) _plasMinas.SetActive(true);
         var minastext = _plasMinas?.GetComponent<Text>();
-        minastext.text = add.ToString();
+        minastext.text = add.ToString("+#;-#;");
         ShowText(_powCount);
         if(_pow <= 0)
         {
