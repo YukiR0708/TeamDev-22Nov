@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7182850246011208966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6176705, y: -2.09, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,9 +172,9 @@ MonoBehaviour:
   _speed: 5
   _jumpForce: 500
   _onGround: 0
-  _throwInterval: 3
   _powBlock: {fileID: 3556282907353471511, guid: 930a41956d0c09f49b113d738558ae8a, type: 3}
   _powSpawn: {fileID: 1549643848753213207}
+  _cursor: {fileID: 0}
   _playMode: 0
 --- !u!95 &7182850246011208972
 Animator:

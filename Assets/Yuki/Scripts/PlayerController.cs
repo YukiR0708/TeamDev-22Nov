@@ -133,7 +133,20 @@ public class PlayerController : MonoBehaviour
         {
             _onGround = true;
         }
-        //Elevatorだったら子オブジェクトにする
+        else if(other.gameObject.CompareTag("Elevator"))
+        {
+            _onGround = true;
+            transform.SetParent(other.gameObject.transform);    //Elevatorだったら子オブジェクトにする
+        }
+        
     }
 
+
+    private void OnCollisionExit(Collision other)
+    {
+        if(other.gameObject.CompareTag("Elevator"))
+        {
+            transform.SetParent(null);  //Elevatorだったら子オブジェクトから外す
+        }
+    }
 }
