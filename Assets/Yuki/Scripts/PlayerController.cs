@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("枠のオブジェクト")] GameObject _cursor = default;
     [Tooltip("枠のSpriteRenderer")] SpriteRenderer _crsorSR = default;
     [Tooltip("Rayの長さ")] float _rayLength = default;
-
+    [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
 
 
     /// <summary> プレイヤーの操作状態  /// </summary>
@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
             //*****Powブロックを投げる処理*****
             if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
             {
+                _canThrow = false;
+                StartCoroutine("ThrowCoroutine");
                 _playerAnim.SetTrigger("Pow");  //投げる（アニメーション）
                 //「ぽよーん」SE鳴らす
                 _playMode = PowMode.Throw; //投げる（PowControllerから参照）
@@ -125,7 +127,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    /// <summary> 着地判定のフラグ処理 /// </summary>
+    /// <summary> 着地判定のフラグ処理 ・エレベーターでの物理挙動修正 /// </summary>
     /// <param name="other"></param>
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -142,11 +144,19 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Elevator"))
         {
             transform.SetParent(null);  //Elevatorだったら子オブジェクトから外す
         }
     }
+
+
+    private IEnumerator ThrowCoroutine()
+    {
+        yield return new WaitForSeconds(_throwInterval);
+        _canThrow = true;
+    }
+    
 }

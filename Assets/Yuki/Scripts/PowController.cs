@@ -6,7 +6,7 @@ public class PowController : MonoBehaviour
 {
     PlayerController _playerCon;
     Rigidbody2D _powRb = default;
-   [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
+   [SerializeField, Header("Powを消す時間差分")] float _destroyTimeOffset = default;
 
     /// <summary> 各Powの役割識別  /// </summary>
     private enum PowJudge
@@ -44,6 +44,9 @@ public class PowController : MonoBehaviour
             Put(); //置く
         }
 
+        _playerCon._playMode = PlayerController.PowMode.Normal; //PowModeをNormalに戻す
+
+
     }
 
     /// <summary> 投げられたときの処理 /// </summary>
@@ -57,14 +60,13 @@ public class PowController : MonoBehaviour
     {
         Debug.Log("置いたあとの処理");
         _powRb.bodyType = RigidbodyType2D.Static;   //置くときは固定する
-        _playerCon._playMode = PlayerController.PowMode.Normal; //PowModeをNormalに戻す
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (_playerCon._playMode == PlayerController.PowMode.Throw && _powJudge == PowJudge.Thrown)
+        if (_powJudge == PowJudge.Thrown)
         {
-            StartCoroutine(ThrowCoroutine());
+            StartCoroutine(PowDestroyCoroutine());
 
             if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow")) //投げモードで地面か壁にあたったら
             {
@@ -93,10 +95,9 @@ public class PowController : MonoBehaviour
 
     }
 
-    private IEnumerator ThrowCoroutine()
+    private IEnumerator PowDestroyCoroutine()
     {
-        yield return new WaitForSeconds(_throwInterval);    //指定秒待つ
-        _playerCon._playMode = PlayerController.PowMode.Normal; //PowModeをNormalに戻す
+        yield return new WaitForSeconds(_destroyTimeOffset);    //指定秒待つ
         Destroy(this.gameObject);
     }
 
