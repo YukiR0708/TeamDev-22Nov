@@ -133,7 +133,7 @@ public class EnemyManager : MonoBehaviour
             _rb.constraints = RigidbodyConstraints2D.FreezePositionY;
         }
     }
-    void ThrowZako()
+    void ThrowZako() //ŽË’ö‚É“ü‚é‚ÆŒ‚‚Á‚Ä‚­‚é“G
     {
         if(_player)
         {
