@@ -15,13 +15,13 @@ public class RanRankScript : MonoBehaviour
         _countText = transform.GetChild(1).gameObject.GetComponent<Text>();
         _rankText = transform.GetChild(2).gameObject.GetComponent<Text>();
         _gameCanvas = GameObject.Find("GameCanvas");
-        gameObject.SetActive(false);
     }
     private void OnEnable()
     {
         //startに書くとうまく反映されないのでアクティブ時に反映させるようにした。
         _rankText.text = GameManager.Instance.Rank();
         GameManager.Instance.ShowText(_countText);
+        GameManager.Instance._playGame = false;
         _gameCanvas.SetActive(false);
     }
 
