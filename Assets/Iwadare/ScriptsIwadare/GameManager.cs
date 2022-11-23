@@ -31,8 +31,6 @@ public class GameManager : SingletonMonovihair<GameManager>
     //public bool _playGame => _play;
     [Tooltip("チェックポイント通過時のエフェクト")]
     [SerializeField] GameObject _collect;
-    [Tooltip("エフェクトのyのposition微調整")]
-    [SerializeField]float _collectposition;
 
     //シーン引き継いでも消えないぞ！
     protected override bool _dontDestroyOnLoad { get { return true; } }
@@ -144,9 +142,9 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     public void ChackpointGet()
     {
-        var collectpos = _chackList[_chackCount].transform.position;
-        collectpos.y = collectpos.y + _collectposition;
-        Instantiate(_collect, collectpos,Quaternion.identity);
+        var _chackAni = _chackList[_chackCount]?.GetComponent<Animator>();
+        _chackAni.Play("ChackTrueAni");
+        Instantiate(_collect, _chackList[_chackCount].transform.position,Quaternion.identity);
     }
 
     /// <summary>Powブロックの初期化をする</summary>
