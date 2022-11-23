@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]GameManager _gm = default;
+    [SerializeField] GameManager _gm = default;
     ///*****移動＆ジャンプ関連*****
     Rigidbody2D _playerRb = default;
     SpriteRenderer _playerSr = default;
@@ -26,6 +26,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Rayの長さ")] float _rayLength = default;
     [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
 
+    //*****SE関係*****
+    AudioSource _audioSource = default;
+    [SerializeField, Header("ジャンプの音")] AudioClip _jumpSE;
+    [SerializeField, Header("Powを投げる音")] AudioClip _powThrowSE;
+    [SerializeField, Header("Pow置けないときの音")] AudioClip _cannnotPutSE;
+    [SerializeField, Header("Powを置く音")] AudioClip _putSE;
+    [SerializeField, Header("敵に当たった音")] AudioClip _damageSE;
 
     /// <summary> プレイヤーの操作状態  /// </summary>
     public enum PowMode
@@ -45,6 +52,7 @@ public class PlayerController : MonoBehaviour
         _playerAnim = gameObject.GetComponent<Animator>();
         Cursor.visible = false;
         _crsorSR = _cursor.GetComponent<SpriteRenderer>();
+        _audioSource = gameObject.GetComponent<AudioSource>();
 
         _canPut = true;
         _canThrow = true;
@@ -52,77 +60,84 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _hInput = Input.GetAxisRaw("Horizontal");
-        _mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //カーソルの位置を取得
-        _cursor.transform.position = _mouseposition;   //枠オブジェクトをカーソルの位置に移動
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //カメラからカーソルの方向にRayを飛ばす。
-
-        if(Physics2D.BoxCast(ray.origin, new Vector2(1.0f,1.0f),90, ray.direction, _rayLength) || !_onGround) //何かにあたったらPowを置けないようにする。枠オブジェクトを赤くする。
+        if (_gm._playGame)
         {
-            Debug.Log("配置できないよ");
-            _canPut = false;
-            _crsorSR.color = Color.red;
-        }
-        else
-        {
-            _canPut = true;
-            _crsorSR.color = Color.white;
-        }
+            _hInput = Input.GetAxisRaw("Horizontal");
+            _mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //カーソルの位置を取得
+            _cursor.transform.position = _mouseposition;   //枠オブジェクトをカーソルの位置に移動
 
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //カメラからカーソルの方向にRayを飛ばす。
+
+            if (Physics2D.BoxCast(ray.origin, new Vector2(1.0f, 1.0f), 90, ray.direction, _rayLength) || !_onGround) //何かにあたったらPowを置けないようにする。枠オブジェクトを赤くする。
+            {
+                Debug.Log("配置できないよ");
+                _canPut = false;
+                _crsorSR.color = Color.red;
+            }
+            else
+            {
+                _canPut = true;
+                _crsorSR.color = Color.white;
+            }
+        }
     }
 
     void LateUpdate()
     {
 
-        if (_playerAnim && _playMode == PowMode.Normal)
+        if (_gm._playGame)
         {
-            _playerAnim.SetFloat("Speed", Mathf.Abs(_hInput * _speed)); //AnimatorControllerに移動速度を渡す
-
-
-            //*****Powブロックを投げる処理*****
-            if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
+            if (_playerAnim && _playMode == PowMode.Normal)
             {
-                _canThrow = false;
-                StartCoroutine("ThrowCoroutine");
-                _playerAnim.SetTrigger("Pow");  //投げる（アニメーション）
-                //「ぽよーん」SE鳴らす
-                _playMode = PowMode.Throw; //投げる（PowControllerから参照）
-                Instantiate(_powBlock, _powSpawn.transform.position, _powSpawn.transform.rotation);
-                //Powの数を減らす
-            }
+                _playerAnim.SetFloat("Speed", Mathf.Abs(_hInput * _speed)); //AnimatorControllerに移動速度を渡す
 
-            //*****Powブロックを配置する処理*****
-            if (Input.GetButtonDown("Fire1") && _canPut)
-            {
-                _playMode = PowMode.Put; //配置する（PowControllerから参照）
-                Instantiate(_powBlock, _cursor.transform.position, _cursor.transform.rotation);　//枠の位置にPowブロックを配置する
-                //Powの数を減らす
-            }
-            else if (Input.GetButtonDown("Fire1") && !_canPut)
-            {
 
-                //「ブッブー」SE鳴らす
-            }
+                //*****Powブロックを投げる処理*****
+                if (Input.GetKeyDown(KeyCode.LeftShift) && _canThrow)
+                {
+                    _canThrow = false;
+                    StartCoroutine("ThrowCoroutine");
+                    _playerAnim.SetTrigger("Pow");  //投げる（アニメーション）
+                    _audioSource.PlayOneShot(_powThrowSE); //「ぽよーん」SE鳴らす
+                    _playMode = PowMode.Throw; //投げる（PowControllerから参照）
+                    Instantiate(_powBlock, _powSpawn.transform.position, _powSpawn.transform.rotation);
+                    _gm.AddPow(-1); //Powの数を減らす
+                }
 
-            //*****移動＆ジャンプ処理*****
-            _playerRb.velocity = new Vector2(_hInput * _speed, _playerRb.velocity.y);
+                //*****Powブロックを配置する処理*****
+                if (Input.GetButtonDown("Fire1") && _canPut)
+                {
+                    _playMode = PowMode.Put; //配置する（PowControllerから参照）
+                    Instantiate(_powBlock, _cursor.transform.position, _cursor.transform.rotation); //枠の位置にPowブロックを配置する
+                    _audioSource.PlayOneShot(_putSE); //「Powを置く」SE鳴らす
+                    _gm.AddPow(-1);  //Powの数を減らす
+                }
+                else if (Input.GetButtonDown("Fire1") && !_canPut)
+                {
 
-            //移動時の反転
-            if (_hInput < 0 && !_playerSr.flipX)
-            {
-                _playerSr.flipX = true;
-            }
-            else if (_hInput > 0 && _playerSr.flipX)
-            {
-                _playerSr.flipX = false;
-            }
+                    _audioSource.PlayOneShot(_cannnotPutSE); //「ブッブー」SE鳴らす
+                }
 
-            if (Input.GetKeyDown(KeyCode.Space) && _onGround)
-            {
-                _playerRb.AddForce(Vector2.up * _jumpForce);
-                _playerAnim.SetTrigger("Jump");
-                _onGround = false;
+                //*****移動＆ジャンプ処理*****
+                _playerRb.velocity = new Vector2(_hInput * _speed, _playerRb.velocity.y);
+
+                //移動時の反転
+                if (_hInput < 0 && !_playerSr.flipX)
+                {
+                    _playerSr.flipX = true;
+                }
+                else if (_hInput > 0 && _playerSr.flipX)
+                {
+                    _playerSr.flipX = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space) && _onGround)
+                {
+                    _playerRb.AddForce(Vector2.up * _jumpForce);
+                    _audioSource.PlayOneShot(_jumpSE);
+                    _playerAnim.SetTrigger("Jump");
+                    _onGround = false;
+                }
             }
         }
     }
@@ -130,22 +145,29 @@ public class PlayerController : MonoBehaviour
     /// <param name="other"></param>
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow"))
+        string otherName = other.gameObject.tag;
+
+        if (otherName == "Ground" || otherName == "Pow")
         {
             _onGround = true;
         }
-        else if(other.gameObject.CompareTag("Elevator"))
+        else if (otherName == "Elevator")
         {
             _onGround = true;
             transform.SetParent(other.gameObject.transform);    //Elevatorだったら子オブジェクトにする
         }
-        
+        else if (otherName == "ShakeDown" || otherName == "HitDown" || otherName == "Boss" || otherName == "Bullet" || otherName == "Ball")
+        {
+            _audioSource.PlayOneShot(_damageSE);
+            _gm.AddPow(-1); //敵に当たったらPowブロックの数が減る
+        }
+
     }
 
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Elevator"))
+        if (other.gameObject.CompareTag("Elevator"))
         {
             transform.SetParent(null);  //Elevatorだったら子オブジェクトから外す
         }
@@ -157,5 +179,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(_throwInterval);
         _canThrow = true;
     }
-    
+
 }
