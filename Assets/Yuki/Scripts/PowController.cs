@@ -118,7 +118,7 @@ public class PowController : MonoBehaviour
     {
         _powRb.bodyType = RigidbodyType2D.Static;   //Powの動きを止める
         _powCol.enabled = false;
-        //Instantiate(_shockWave, transform.position, transform.rotation);
+        Instantiate(_shockWave, transform.position, transform.rotation);
         _anim.Play();//Powのアニメーション再生
         yield return new WaitForSeconds(_destroyTimeOffset);    //指定秒待つ
         Destroy(this.gameObject);
