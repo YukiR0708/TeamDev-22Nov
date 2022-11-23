@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _jumpForce: 300
+  _jumpForce: 400
   _onGround: 0
   _powBlock: {fileID: 3556282907353471511, guid: 930a41956d0c09f49b113d738558ae8a, type: 3}
   _powSpawn: {fileID: 2938970866191408808}

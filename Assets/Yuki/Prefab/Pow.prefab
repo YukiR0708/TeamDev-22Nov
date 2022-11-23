@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shockWave: {fileID: 100004, guid: fb7b0526ade434043b350a180d741cf3, type: 3}
   _kirakira: {fileID: 4544122437472401377, guid: 9f43a7429da1e5a489efc0631a77268d, type: 3}
-  _destroyTimeOffset: 2
+  _destroyTimeOffset: 1.5
   _attackTimeOffset: 1
   _theta: 0.5235988
   _initialV: 10

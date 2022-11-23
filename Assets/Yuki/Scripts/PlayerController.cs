@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]GameManager _gm = default;
     ///*****ˆÚ“®•ƒWƒƒƒ“ƒvŠÖ˜A*****
     Rigidbody2D _playerRb = default;
     SpriteRenderer _playerSr = default;
