@@ -9,6 +9,8 @@ public class PowController : MonoBehaviour
     Rigidbody2D _powRb = default;
     Animation _anim = default;
     BoxCollider2D _powCol = default;
+    AudioSource _powAS;
+    [SerializeField, Header("Powがなにかに当たったSE")] AudioClip _powSE;
     [SerializeField, Header("Powを投げたときに出る波動")] GameObject _shockWave = default;
     [SerializeField, Header("敵を倒したときに出るエフェクト")] GameObject _kirakira = default;
     [SerializeField, Header("Powを消す時間差分")] float _destroyTimeOffset = default;
@@ -32,6 +34,7 @@ public class PowController : MonoBehaviour
         _powRb = gameObject.GetComponent<Rigidbody2D>();
         _anim = gameObject.GetComponent<Animation>();
         _powCol = gameObject.GetComponent<BoxCollider2D>();
+        _powAS = gameObject.GetComponent<AudioSource>();
 
         if (_playerCon._playMode == PlayerController.PowMode.Throw)  //投げモードだったら
         {
