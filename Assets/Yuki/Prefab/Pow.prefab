@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6446321032488200825}
   - component: {fileID: 5494852995540526994}
   - component: {fileID: 4378154180008516778}
-  - component: {fileID: 4697912058322917652}
+  - component: {fileID: 4180044298301298551}
   m_Layer: 0
   m_Name: Pow
   m_TagString: Pow
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 0d3810137ac96844aaad66b8a047f77b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21868f7bbc34b824a97a3b0d206a60f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyTimeOffset: 1
+  _shockWave: {fileID: 100004, guid: fb7b0526ade434043b350a180d741cf3, type: 3}
+  _kirakira: {fileID: 4544122437472401377, guid: 9f43a7429da1e5a489efc0631a77268d, type: 3}
+  _destroyTimeOffset: 2
+  _attackTimeOffset: 1
   _theta: 0.5235988
   _initialV: 10
 --- !u!61 &5494852995540526994
@@ -150,23 +153,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!95 &4697912058322917652
-Animator:
-  serializedVersion: 4
+--- !u!111 &4180044298301298551
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3556282907353471511}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 295464ccf0cacae46ba914b2e23b4764, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 295464ccf0cacae46ba914b2e23b4764, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

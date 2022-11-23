@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("枠のSpriteRenderer")] SpriteRenderer _crsorSR = default;
     [Tooltip("Rayの長さ")] float _rayLength = default;
     [SerializeField, Header("Powを投げるインターバル")] float _throwInterval = default;
-    [Tooltip("カーソルと座標のズレ")] float _offset = -0.5f;
 
 
     /// <summary> プレイヤーの操作状態  /// </summary>
