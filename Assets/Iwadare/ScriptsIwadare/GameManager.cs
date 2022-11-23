@@ -29,6 +29,8 @@ public class GameManager : SingletonMonovihair<GameManager>
     public bool _playGame;
     //外から変数の中身を変えることがなかったら下の文に変更します。
     //public bool _playGame => _play;
+    [Tooltip("チェックポイント通過時のエフェクト")]
+    [SerializeField] GameObject _collect;
 
     //シーン引き継いでも消えないぞ！
     protected override bool _dontDestroyOnLoad { get { return true; } }
@@ -136,6 +138,13 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if(_playerTrans && _chackList.Count != 0)
         _playerTrans.position = _chackList[_chackCount].transform.position;
+    }
+
+    public void ChackpointGet()
+    {
+        var _chackAni = _chackList[_chackCount]?.GetComponent<Animator>();
+        _chackAni.Play("ChackTrueAni");
+        Instantiate(_collect, _chackList[_chackCount].transform.position,Quaternion.identity);
     }
 
     /// <summary>Powブロックの初期化をする</summary>

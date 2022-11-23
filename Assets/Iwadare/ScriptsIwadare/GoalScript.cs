@@ -7,12 +7,15 @@ public class GoalScript : MonoBehaviour
 {
     [Tooltip("Goalした際のキャンバスの表示")]
     private GameObject _goalCanvas;
+    [Tooltip("一番親のオブジェクト取得")]
+    private GameObject _root;
     [Tooltip("GoalCanvasのPowブロックの数を表示するテキスト")]
     private Text _goalPowCount;
 
     private void Start()
     {
-        _goalCanvas = transform.GetChild(0).gameObject;
+        _root = transform.root.gameObject;
+        _goalCanvas = _root.transform.GetChild(0).gameObject;
         _goalCanvas.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)

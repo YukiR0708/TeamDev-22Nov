@@ -794,3 +794,5 @@ MonoBehaviour:
   _maxPow: 40
   _chackCount: 0
   _playGame: 0
+  _collect: {fileID: 1712243224519172757, guid: 15f431ca8d20f114a8a71685e4d5656b, type: 3}
+  _collectposition: 0.5

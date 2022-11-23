@@ -9,6 +9,7 @@ public class ChackCount : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameManager.Instance._chackCount++;
+            GameManager.Instance.ChackpointGet();
             gameObject.SetActive(false);
         }
     }
