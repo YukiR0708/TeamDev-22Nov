@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuleetManager : MonoBehaviour
 {
     [SerializeField] float _speed;
+    [SerializeField] GameObject _impact;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,17 +21,14 @@ public class BuleetManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Destroy(gameObject, 3f);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            //Instantiate(_impact, transform.position, transform.rotation);
         }
-        else
-        {
-            Destroy(gameObject, 2f);
-        }
+        Destroy(gameObject);
     }
 }
