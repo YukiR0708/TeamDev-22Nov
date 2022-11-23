@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PowController : MonoBehaviour
 {
-    PlayerController _playerCon;
+    PlayerController _playerCon = default;
+    SpriteRenderer _playerSR = default;
     Rigidbody2D _powRb = default;
-   [SerializeField, Header("Powを消す時間差分")] float _destroyTimeOffset = default;
+    [SerializeField, Header("Powを消す時間差分")] float _destroyTimeOffset = default;
+    [SerializeField, Header("Powを投げる角度")] float _theta = default;
+    [SerializeField, Header("Powを投げる初速度")] float _initialV = default;
 
     /// <summary> 各Powの役割識別  /// </summary>
     private enum PowJudge
@@ -19,7 +22,8 @@ public class PowController : MonoBehaviour
 
     private void Awake()
     {
-        _playerCon = GameObject.Find("Player").GetComponent<PlayerController>();
+        _playerCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _playerSR = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         _powRb = gameObject.GetComponent<Rigidbody2D>();
 
         if (_playerCon._playMode == PlayerController.PowMode.Throw)  //投げモードだったら
@@ -27,7 +31,7 @@ public class PowController : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("ThrownPow");  //Playerとぶつからないよう、自分のレイヤーを変える
             _powJudge = PowJudge.Thrown;
         }
-        else if(_playerCon._playMode == PlayerController.PowMode.Put)
+        else if (_playerCon._playMode == PlayerController.PowMode.Put)
         {
             _powJudge = PowJudge.Put;
         }
@@ -53,6 +57,10 @@ public class PowController : MonoBehaviour
     void Thrown()
     {
         _powRb.bodyType = RigidbodyType2D.Dynamic;  //投げのときは物理挙動させる
+
+        _theta = _playerSR.flipX ? Mathf.PI - _theta : _theta;//Playerのスプライトがどっちを向いてるかでシータを反転させる
+        _powRb.velocity = new Vector2(_initialV * Mathf.Cos(_theta), _initialV * Mathf.Sin(_theta)); //斜方投射
+
     }
 
     /// <summary> 置かれたときの処理 </summary>
@@ -86,7 +94,7 @@ public class PowController : MonoBehaviour
 
             }
 
-            else if(other.gameObject.CompareTag("Boss"))
+            else if (other.gameObject.CompareTag("Boss"))
             {
                 Debug.Log("BossのHPが削れる");
             }

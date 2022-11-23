@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _destroyTimeOffset: 1
+  _theta: 0.5235988
+  _initialV: 10
 --- !u!61 &5494852995540526994
 BoxCollider2D:
   m_ObjectHideFlags: 0
