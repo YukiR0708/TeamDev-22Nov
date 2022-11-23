@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]GameManager _gm = default;
     ///*****移動＆ジャンプ関連*****
     Rigidbody2D _playerRb = default;
     SpriteRenderer _playerSr = default;
@@ -53,13 +54,11 @@ public class PlayerController : MonoBehaviour
     {
         _hInput = Input.GetAxisRaw("Horizontal");
         _mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //カーソルの位置を取得
-        _cursor.transform.position
-            = new Vector2(Mathf.Round(_mouseposition.x), Mathf.Round(_mouseposition.y)); //枠オブジェクトをカーソルの位置に格子点に沿って移動
+        _cursor.transform.position = _mouseposition;   //枠オブジェクトをカーソルの位置に移動
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //カメラからカーソルの方向にRayを飛ばす。
-        //Vector3 rayRound = new Vector3(Mathf.Round(ray.direction.x), Mathf.Round(ray.direction.y), 0); //rayの方向を格子点に丸め込む
 
-        if (Physics2D.Raycast(ray.origin, ray.direction, _rayLength) || !_onGround) //何かにあたったらPowを置けないようにする。枠オブジェクトを赤くする。
+        if(Physics2D.BoxCast(ray.origin, new Vector2(1.0f,1.0f),90, ray.direction, _rayLength) || !_onGround) //何かにあたったらPowを置けないようにする。枠オブジェクトを赤くする。
         {
             Debug.Log("配置できないよ");
             _canPut = false;
