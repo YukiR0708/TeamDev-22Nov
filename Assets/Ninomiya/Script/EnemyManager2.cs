@@ -29,14 +29,7 @@ public class EnemyManager2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_enemyType == true)
-        {
-            FallZako();
-        }
-        else
-        {
-            ThrowZako();
-        }
+        FallZako();
     }
     void FallZako() //‚Ç‚Á‚·‚ñ
     {
@@ -47,6 +40,7 @@ public class EnemyManager2 : MonoBehaviour
         if (_time > _cooltime)
         {
             _rb.constraints = RigidbodyConstraints2D.None;
+            _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             Vector3 dir = (new Vector3(hit.point.x, hit.point.y, 0) - this.transform.position);
             _rb.velocity = dir.normalized * _fallmovespeed;
             if (_boolground == false)

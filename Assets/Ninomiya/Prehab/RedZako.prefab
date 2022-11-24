@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 720487888537772975}
   m_Layer: 0
   m_Name: RedZako
-  m_TagString: Untagged
+  m_TagString: ShakeDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,10 +168,3 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  _cooltime: 0
-  _fallmovespeed: 0
-  _downspeed: 0
-  _fallground: {x: 0, y: -10}
-  _throwcooltime: 0
-  _bullet: {fileID: 0}
-  _shotpoint: {fileID: 0}
