@@ -426,7 +426,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: PowCount
+  m_Text: 5000tCount
 --- !u!114 &6611217215007506022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'PowCount :'
+  m_Text: '5000t Count :'
 --- !u!114 &192698609406779232
 MonoBehaviour:
   m_ObjectHideFlags: 0

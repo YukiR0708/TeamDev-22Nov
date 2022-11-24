@@ -32,6 +32,12 @@ public class GameManager : SingletonMonovihair<GameManager>
     [Tooltip("チェックポイント通過時のエフェクト")]
     [SerializeField] GameObject _collect;
 
+    ///Audio一覧
+    [Tooltip("GameManagerのAudio")]
+    private AudioSource _gMAudio;
+    [Tooltip("ChackPointを通った時の音")]
+    [SerializeField] AudioClip _chackAudio;
+
     //シーン引き継いでも消えないぞ！
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
@@ -40,6 +46,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _gameOverCanvas = transform.GetChild(0).gameObject;
         _gameOverCanvas.SetActive(false);
+        _gMAudio = GetComponent<AudioSource>();
         //powブロックの初期化
         PowReset();
         Begin();
@@ -144,6 +151,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         var _chackAni = _chackList[_chackCount]?.GetComponent<Animator>();
         _chackAni.Play("ChackTrueAni");
+        _gMAudio.PlayOneShot(_chackAudio);
         Instantiate(_collect, _chackList[_chackCount].transform.position,Quaternion.identity);
     }
 
