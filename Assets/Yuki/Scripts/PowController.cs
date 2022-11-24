@@ -113,7 +113,7 @@ public class PowController : MonoBehaviour
                 Debug.Log("Boss‚ÌHP‚ªí‚ê‚é");
                 //Boss‚ÌHP‚¯‚¸‚é
             }
-
+            
         }
 
     }

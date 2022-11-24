@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
         _playerRb = gameObject.GetComponent<Rigidbody2D>();
         _playerSr = gameObject.GetComponent<SpriteRenderer>();
         _playerAnim = gameObject.GetComponent<Animator>();
-        Cursor.visible = false;
         _crsorSR = _cursor.GetComponent<SpriteRenderer>();
         _audioSource = gameObject.GetComponent<AudioSource>();
 
