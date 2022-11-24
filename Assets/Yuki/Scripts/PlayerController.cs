@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] GameManager _gm = default;
     ///*****移動＆ジャンプ関連*****
     Rigidbody2D _playerRb = default;
     SpriteRenderer _playerSr = default;
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_gm._playGame)
+        if (GameManager.Instance._playGame)
         {
             _hInput = Input.GetAxisRaw("Horizontal");
             _mouseposition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //カーソルの位置を取得
@@ -85,7 +84,7 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
 
-        if (_gm._playGame)
+        if (GameManager.Instance._playGame)
         {
             if (_playerAnim && _playMode == PowMode.Normal)
             {
@@ -101,7 +100,7 @@ public class PlayerController : MonoBehaviour
                     _audioSource.PlayOneShot(_powThrowSE); //「ぽよーん」SE鳴らす
                     _playMode = PowMode.Throw; //投げる（PowControllerから参照）
                     Instantiate(_powBlock, _powSpawn.transform.position, _powSpawn.transform.rotation);
-                    _gm.AddPow(-1); //Powの数を減らす
+                    GameManager.Instance.AddPow(-1); //Powの数を減らす
                 }
 
                 //*****Powブロックを配置する処理*****
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
                     _playMode = PowMode.Put; //配置する（PowControllerから参照）
                     Instantiate(_powBlock, _cursor.transform.position, _cursor.transform.rotation); //枠の位置にPowブロックを配置する
                     _audioSource.PlayOneShot(_putSE); //「Powを置く」SE鳴らす
-                    _gm.AddPow(-1);  //Powの数を減らす
+                    GameManager.Instance.AddPow(-1);  //Powの数を減らす
                 }
                 else if (Input.GetButtonDown("Fire1") && !_canPut)
                 {
@@ -159,7 +158,7 @@ public class PlayerController : MonoBehaviour
         else if (otherName == "ShakeDown" || otherName == "HitDown" || otherName == "Boss" || otherName == "Bullet" || otherName == "Ball")
         {
             _audioSource.PlayOneShot(_damageSE);
-            _gm.AddPow(-1); //敵に当たったらPowブロックの数が減る
+            GameManager.Instance.AddPow(-1); //敵に当たったらPowブロックの数が減る
         }
 
     }

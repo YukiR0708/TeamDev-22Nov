@@ -17,9 +17,9 @@ public class GameCanvasSetActive : MonoBehaviour
         _gameCanvas.SetActive(false);
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance._playGame = true;
-        _gameCanvas.SetActive(true);
-    }
+    //private void OnDisable()
+    //{
+    //    GameManager.Instance._playGame = true;
+    //    _gameCanvas.SetActive(true);
+    //}
 }
