@@ -29,7 +29,14 @@ public class EnemyManager2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FallZako();
+        if(_enemyType == true)
+        {
+            FallZako();
+        }
+        else
+        {
+            ThrowZako();
+        }
     }
     void FallZako() //‚Ç‚Á‚·‚ñ
     {
