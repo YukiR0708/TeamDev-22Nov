@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8417149482928067660}
   m_Layer: 0
   m_Name: ShotZako
-  m_TagString: Untagged
+  m_TagString: ShakeDown
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

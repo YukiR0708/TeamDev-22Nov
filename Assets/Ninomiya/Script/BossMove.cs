@@ -18,6 +18,7 @@ public class BossMove : MonoBehaviour
     [SerializeField] Transform[] _targettransform; //ザコ敵を生成する場所
     [SerializeField] float _enemyCount;　//ザコ敵を生成する回数
     Animator _anim;
+    [SerializeField] GameObject[] _zako;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,26 +54,28 @@ public class BossMove : MonoBehaviour
                 _anim.SetBool("BossMove", true);
                 if(_distance < _stopdistance)
                 {
-                    _rb.velocity = Vector2.zero;
                     _anim.SetBool("BossMove", false);
+                    _rb.velocity = Vector2.zero;
                     _time = 0;
                 }
             }
             else if (random == 4 || random == 5 || random == 6)　//弾の発射
             {
-                _anim.SetTrigger("BossAttack");
+                _anim.SetBool("BossAttack1", true);
                 Instantiate(_buleet, _shotpoint.transform.position, transform.rotation);
                 _time = 0;
+                _anim.SetBool("BossAttack1", false);
             }
             else //ザコ敵の生成
             {
                 for(int i = 0; i < _enemyCount; i++)
                 {
                     var InstRandam = Random.Range(1, 4);
-                    Instantiate(_buleet, _targettransform[InstRandam].position, transform.rotation);
-                    _anim.SetTrigger("BossAttack");
+                    Instantiate(_zako[InstRandam], _targettransform[InstRandam].position, transform.rotation);
+                    _anim.SetBool("BossAttack1", true);
                 }
                 _time = 0;
+                _anim.SetBool("BossAttack1", false);
             }
         }
         if(_bossPosition.x < _playerPosition.x) //ボスの向き
