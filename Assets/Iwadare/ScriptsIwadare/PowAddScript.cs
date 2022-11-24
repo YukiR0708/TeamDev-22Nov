@@ -10,8 +10,8 @@ public class PowAddScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameManager.Instance.AddPow(1);
-            Instantiate(_effect,transform.parent.parent.gameObject.transform.position,Quaternion.identity);
-            Destroy(transform.parent.parent.gameObject);
+            Instantiate(_effect,transform.position,Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }
