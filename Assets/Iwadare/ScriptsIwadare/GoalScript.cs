@@ -12,11 +12,9 @@ public class GoalScript : MonoBehaviour
     [Tooltip("GoalCanvasのPowブロックの数を表示するテキスト")]
     private Text _goalPowCount;
 
-    private void Start()
+    private void Awake()
     {
-        _parent = transform.parent.gameObject;
-        _goalCanvas = _parent.transform.GetChild(0).gameObject;
-        //_goalCanvas.SetActive(false);
+        _goalCanvas = transform.GetChild(0).gameObject;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

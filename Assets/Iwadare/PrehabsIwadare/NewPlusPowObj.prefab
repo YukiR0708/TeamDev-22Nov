@@ -164,7 +164,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pow+
+  m_Text: 5000t+
 --- !u!114 &5857863581887412706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effect: {fileID: 1712243224519172757, guid: 15f431ca8d20f114a8a71685e4d5656b, type: 3}
+  _getAudio: {fileID: 8293272274292905981, guid: 4c0cb1967d167b64290ca6e019d15f92, type: 3}
 --- !u!1 &7278509492617270496
 GameObject:
   m_ObjectHideFlags: 0
