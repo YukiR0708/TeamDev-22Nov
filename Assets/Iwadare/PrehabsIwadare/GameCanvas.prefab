@@ -273,7 +273,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: PowCount
+  m_Text: 5000t Count
 --- !u!1 &2736453356101259645
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>トゲに当たった時にPowブロックを減らしてPlayerをワープさせるスクリプト</summary>
 public class TrapTogeScripts : MonoBehaviour
 {
-    [SerializeField] AudioSource _trapAudio;
+    private AudioSource _trapAudio;
 
     private void Start()
     {
