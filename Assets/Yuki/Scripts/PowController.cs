@@ -43,6 +43,7 @@ public class PowController : MonoBehaviour
         }
         else if (_playerCon._playMode == PlayerController.PowMode.Put)
         {
+            gameObject.layer = LayerMask.NameToLayer("PutPow");  //敵が折り返すよう、自分のレイヤーを変える
             _powJudge = PowJudge.Put;
         }
 
@@ -87,9 +88,10 @@ public class PowController : MonoBehaviour
         {
             StartCoroutine(PowDestroyCoroutine());
 
-            if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow")) //投げモードで地面か壁にあたったら
+            if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Pow") || other.gameObject.CompareTag("Wall")) //投げモードで地面か壁にあたったら
             {
                 Debug.Log("ザコだけしぬ");
+                _powAS.PlayOneShot(_powSE);
                 //SE鳴らして画面を振動させる。波を出す。
                 StartCoroutine(DestroyZakoCoroutine());
 
@@ -99,6 +101,7 @@ public class PowController : MonoBehaviour
             else if (other.gameObject.CompareTag("ShakeDown") || other.gameObject.CompareTag("HitDown")) //ザコか強敵にあたったら
             {
                 Debug.Log("当たった敵とザコがしぬ");
+                _powAS.PlayOneShot(_powSE);
                 //SE鳴らして画面を振動させる。波をだす。
                 Destroy(other.gameObject); //当たった敵と画面内のザコ敵が倒れる
                 StartCoroutine(DestroyZakoCoroutine());
@@ -108,6 +111,7 @@ public class PowController : MonoBehaviour
             else if (other.gameObject.CompareTag("Boss"))
             {
                 Debug.Log("BossのHPが削れる");
+                //BossのHPけずる
             }
 
         }
