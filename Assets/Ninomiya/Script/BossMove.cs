@@ -46,7 +46,8 @@ public class BossMove : MonoBehaviour
         if(_time > _cooltime)
         {
             int random = Random.Range(1, 10);
-            if(random == 1 || random == 2 || random == 3) //突進攻撃
+            _anim.SetBool("BossMove", false);
+            if (random == 1 || random == 2 || random == 3) //突進攻撃
             {
                 var npvec = _playerPosition;
                 var mvec = npvec - this.transform.position;
@@ -87,7 +88,7 @@ public class BossMove : MonoBehaviour
             this.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
         }
     }
-    void BossHp(float damage) //ボスの体力
+    public void BossHp(float damage) //ボスの体力
     {
         _hp -= damage;
     }
