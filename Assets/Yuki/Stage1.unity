@@ -381,6 +381,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8983253515662614765, guid: 6d50df66ba0c77d43b944e44a902ddd0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Stage2
+      objectReference: {fileID: 0}
     - target: {fileID: 8983253516438206575, guid: 6d50df66ba0c77d43b944e44a902ddd0, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.125
