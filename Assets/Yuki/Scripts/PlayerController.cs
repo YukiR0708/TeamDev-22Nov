@@ -154,12 +154,21 @@ public class PlayerController : MonoBehaviour
             _onGround = true;
             transform.SetParent(other.gameObject.transform);    //Elevatorだったら子オブジェクトにする
         }
-        else if (otherName == "ShakeDown" || otherName == "HitDown" || otherName == "Boss" || otherName == "Bullet" || otherName == "Ball")
+        else if (otherName == "ShakeDown" || otherName == "HitDown" || otherName == "Boss" || otherName == "Bullet" )
         {
             _audioSource.PlayOneShot(_damageSE);
             GameManager.Instance.AddPow(-1); //敵に当たったらPowブロックの数が減る
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Ball"))
+        {
+            _audioSource.PlayOneShot(_damageSE);
+            GameManager.Instance.AddPow(-1); //敵に当たったらPowブロックの数が減る
+        }
     }
 
 
