@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossMove : MonoBehaviour
 {
@@ -19,11 +20,15 @@ public class BossMove : MonoBehaviour
     [SerializeField] float _enemyCount;　//ザコ敵を生成する回数
     Animator _anim;
     [SerializeField] GameObject[] _zako;
+    [SerializeField] Text _hpText;
+    AudioSource _audio;
+    [SerializeField] AudioClip _sound;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        _audio.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,7 +39,9 @@ public class BossMove : MonoBehaviour
         {
             _anim.SetTrigger("Bossdown");
             Destroy(gameObject,0.5f);
+            _audio.PlayOneShot(_sound);
         }
+        _hpText.text = $"HP:{_hp}";
     }
     void BossAttack()　//ボスの攻撃方法
     {
