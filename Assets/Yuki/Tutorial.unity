@@ -485,6 +485,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.47494447
       objectReference: {fileID: 0}
+    - target: {fileID: 8983253515662614765, guid: 496f728d45b18814fb3bef73e4aa1c95, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Stage1
+      objectReference: {fileID: 0}
     - target: {fileID: 8983253515910970890, guid: 496f728d45b18814fb3bef73e4aa1c95, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
@@ -6668,6 +6672,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: d8cf8e124dfe7f043b159b11cd72a5fe, type: 3}
+    - target: {fileID: 2736453356943938019, guid: 6e5f0d1c9a84b094187a28c6cbfbbe55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2736453357252387234, guid: 6e5f0d1c9a84b094187a28c6cbfbbe55, type: 3}
       propertyPath: m_Pivot.x
       value: 0
