@@ -17,6 +17,7 @@ public class PowController : MonoBehaviour
     [SerializeField, Header("ザコ敵を攻撃するまでの時間差分")] float _attackTimeOffset = default;
     [SerializeField, Header("Powを投げる角度")] float _theta = default;
     [SerializeField, Header("Powを投げる初速度")] float _initialV = default;
+    [SerializeField, Header("Boss")] BossMove _bossMove;
 
     /// <summary> 各Powの役割識別  /// </summary>
     private enum PowJudge
@@ -111,7 +112,7 @@ public class PowController : MonoBehaviour
             else if (other.gameObject.CompareTag("Boss"))
             {
                 Debug.Log("BossのHPが削れる");
-                //BossのHPけずる
+                _bossMove.BossHp(1.0f); //BossのHPを削る
             }
             
         }
