@@ -107,14 +107,7 @@ public class PowController : MonoBehaviour
                 Destroy(other.gameObject); //“–‚½‚Á‚½“G‚Æ‰æ–Ê“à‚ÌƒUƒR“G‚ª“|‚ê‚é
                 StartCoroutine(DestroyZakoCoroutine());
 
-            }
-
-            else if (other.gameObject.CompareTag("Boss"))
-            {
-                Debug.Log("Boss‚ÌHP‚ªí‚ê‚é");
-                _bossMove.BossHp(1.0f); //Boss‚ÌHP‚ğí‚é
-            }
-            
+            }            
         }
 
     }
