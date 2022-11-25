@@ -547,6 +547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RankCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2226288998872555772, guid: 45af9f41aefb11943855984de7e1c379, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3721721534144242789, guid: 45af9f41aefb11943855984de7e1c379, type: 3}
       propertyPath: m_audioClip
       value: 
