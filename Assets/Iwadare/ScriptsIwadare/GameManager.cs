@@ -121,16 +121,16 @@ public class GameManager : SingletonMonovihair<GameManager>
     /// <returns>Rankを返す</returns>
     public string Rank()
     {
-        //50以上でRankS、30以上でRankA、10以上でRankB、それ以下でRankC
-        if(_pow >= 50)
+        //80以上でRankS、50以上でRankA、30以上でRankB、それ以下でRankC
+        if(_pow >= 80)
         {
             return "Rank S";
         }
-        else if(_pow >= 30)
+        else if(_pow >= 50)
         {
             return "Rank A";
         }
-        else if(_pow >= 10)
+        else if(_pow >= 30)
         {
             return "Rank B";
         }
