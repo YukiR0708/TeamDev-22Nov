@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8417149481715482354}
   - component: {fileID: 8417149481715482355}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8417149482481655773}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   - component: {fileID: 8417149482928067651}
   - component: {fileID: 8417149482928067650}
   - component: {fileID: 8417149482928067660}
-  m_Layer: 0
+  - component: {fileID: 7889278051729186810}
+  m_Layer: 9
   m_Name: ShotZako
   m_TagString: ShakeDown
   m_Icon: {fileID: 0}
@@ -245,7 +246,19 @@ MonoBehaviour:
   _fallground: {x: 0, y: -10}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   _throwcooltime: 2
   _bullet: {fileID: 8489338309869604334, guid: 243f4df08e3bcaf429f64bffc89d7319, type: 3}
   _shotpoint: {fileID: 8417149482481655772}
+--- !u!114 &7889278051729186810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417149482928067654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff11063c94e12846adc738e27ddcb9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

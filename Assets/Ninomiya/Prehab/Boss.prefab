@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7227539543494424048}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7227539543518494903}
   - component: {fileID: 7227539543518494902}
   - component: {fileID: 7227539543518494889}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,3 +207,4 @@ MonoBehaviour:
   _stopdistance: 2
   _targettransform: []
   _enemyCount: 2
+  _zako: []
