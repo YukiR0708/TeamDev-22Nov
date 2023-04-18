@@ -376,7 +376,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ecc15bb67968cb34fbc6b28d34f1775b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 518f614778b1da641bd90b650dc67b55, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.706
   m_Pitch: 1
@@ -951,6 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rankCanvas: {fileID: 2226288998872555772, guid: 45af9f41aefb11943855984de7e1c379, type: 3}
+  _sound: {fileID: 201905110}
 --- !u!1 &1106572366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,6 +2648,14 @@ PrefabInstance:
     - target: {fileID: 2606323693914118614, guid: 888bf4828b190a942b015639241ebd86, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606323693979961523, guid: 888bf4828b190a942b015639241ebd86, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Title
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606323694177434052, guid: 888bf4828b190a942b015639241ebd86, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Stage1
       objectReference: {fileID: 0}
     - target: {fileID: 2606323694242769422, guid: 888bf4828b190a942b015639241ebd86, type: 3}
       propertyPath: m_FontData.m_Font

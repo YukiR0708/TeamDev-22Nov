@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2736453355557354064}
   m_Layer: 5
   m_Name: minas
-  m_TagString: Untagged
+  m_TagString: Minas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
