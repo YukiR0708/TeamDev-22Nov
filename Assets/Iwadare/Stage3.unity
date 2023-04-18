@@ -498,7 +498,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ecc15bb67968cb34fbc6b28d34f1775b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.511
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -19352,7 +19352,7 @@ GameObject:
   - component: {fileID: 1655738738}
   - component: {fileID: 1655738737}
   m_Layer: 0
-  m_Name: Chack2Count (1)
+  m_Name: Chack3Count (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20238,7 +20238,7 @@ GameObject:
   - component: {fileID: 1900492606}
   - component: {fileID: 1900492605}
   m_Layer: 0
-  m_Name: Chack2Obj
+  m_Name: Chack3Obj
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

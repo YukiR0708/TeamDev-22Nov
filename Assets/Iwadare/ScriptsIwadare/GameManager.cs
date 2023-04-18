@@ -9,7 +9,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     [Tooltip("Powブロックの最大の数")]
     [SerializeField]int _maxPow = 100;
     [Tooltip("ゲーム中に動くPowブロックの数")]
-    private int _pow;
+    private int _pow = 100;
     [Tooltip("Powの数をカウントするテキスト")]
     private Text _powCount;
     [Tooltip("GameOverになった際キャンバスの表示")]
@@ -37,7 +37,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     private AudioSource _gMAudio;
     [Tooltip("ChackPointを通った時の音")]
     [SerializeField] AudioClip _chackAudio;
-
+    bool _reset;
     //シーン引き継いでも消えないぞ！
     protected override bool _dontDestroyOnLoad { get { return true; } }
 
@@ -55,10 +55,11 @@ public class GameManager : SingletonMonovihair<GameManager>
     /// <summary>ロードする度、初めにやってほしいことのメソッド。</summary>
     void Begin()
     {
+        //Chackpointのリストを全部消去させる。
+        _chackList.Clear();
+        _chackCount = 0;
         //powの残り個数をカウントするテキストの参照
         _powCount = GameObject.Find("Count")?.GetComponent<Text>();
-        //テキストの表示
-        ShowText(_powCount);
         //スタート地点とチェックポイントを全部参照
         _chackObj = GameObject.FindGameObjectsWithTag("Respawn");
         //_chackObjのnull判定
@@ -72,9 +73,11 @@ public class GameManager : SingletonMonovihair<GameManager>
         }
         //playerのTransformを参照
         _playerTrans = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Transform>();
-        _plasMinas = GameObject.Find("minas");
-        if (_plasMinas) _plasMinas.SetActive(false);
+        //_plasMinas = GameObject.FindGameObjectWithTag("Minas");
+        //if (_plasMinas) _plasMinas.SetActive(false);
         _playGame = true;
+        //テキストの表示
+        ShowText(_powCount);
     }
 
     // Update is called once per frame
@@ -106,9 +109,9 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         //ブロックの数を増減させてからテキストに表示。
         _pow += add;
-        if (_plasMinas) _plasMinas.SetActive(true);
-        var minastext = _plasMinas?.GetComponent<Text>();
-        minastext.text = add.ToString("+#;-#;");
+        //if (_plasMinas) _plasMinas.SetActive(true);
+        //var minastext = _plasMinas.GetComponent<Text>();
+        //minastext.text = add.ToString("+#;-#;");
         ShowText(_powCount);
         if(_pow <= 0)
         {
@@ -164,9 +167,6 @@ public class GameManager : SingletonMonovihair<GameManager>
     private void OnLevelWasLoaded(int level)
     {
         _playGame = false;
-        //Chackpointのリストを全部消去させる。
-        _chackList.Clear();
-        _chackCount = 0;
         //ロードする度メソッドを呼び出す。
         Begin();
     }
